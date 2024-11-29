@@ -13,6 +13,14 @@ export function create<T>(
   providers: ProviderConfig,
 ): T;
 
+/**
+ * Create a new instance of `target`. Autowire defaults to `true` if not specified.
+ *
+ * @param target Target class to instantiate.
+ * @param autowire If true, will attempt to inject dependecies based on type definitions.
+ * @param providers Optional provider configuration.
+ * @returns Instantiated instance of `target` class.
+ */
 export function create<T>(
   target: Constructor<T>,
   autowire?: boolean | ProviderConfig,
@@ -25,6 +33,12 @@ export function create<T>(
   return r_build(null, target, autowire ?? true, providers);
 }
 
+/**
+ * Create a new instance of `target` using the "named parameter"
+ * convention. Autowire defaults to `true` if not specified.
+ *
+ * @returns Instantiated instance of `target` class.
+ */
 export function build<T>(opts: {
   target: Constructor<T>;
   autowire?: boolean;
@@ -43,6 +57,9 @@ export function build<T>(opts: {
   );
 }
 
+/**
+ * Recursive Build (internal function)
+ */
 function r_build<T>(
   cache: Map<Tag, unknown> | null,
   TargetClass: Constructor<T>,
@@ -180,6 +197,19 @@ function r_build<T>(
   return target;
 }
 
+/**
+ * Clear the Global Singleton cache for a specific Namespace.
+ *
+ * @param namespace Namespace to clear. The default Namespace is
+ *  assumed if no Namespace is provided.
+ */
 export function clearNamespace(namespace?: Namespace): void {
   globalCache.delete(namespace);
+}
+
+/**
+ * Clear the Global Singleton cache for all Namespaces.
+ */
+export function clearAllNamespaces(): void {
+  globalCache.clear();
 }
