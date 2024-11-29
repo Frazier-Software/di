@@ -1,6 +1,6 @@
 # Getting Started
 
-## reflect-metadata
+## Prerequisites
 
 **@fraziersoft/di** requires reflection support via the `reflect-metadata` package. If you
 haven't already, add it to your repository and then import it in your application or library's
@@ -62,6 +62,22 @@ const app = create(ApplicationService);
 app.doStuff();
 ```
 
+## Disabling Autowiring
+
+You can disable the autowiring behavior by passing `false` as the second argument to `create()`.
+
+If you disable autowiring you must specify every Provider required by your system explicitly. Check
+out the [next section](/docs/tags-providers.md) for more information.
+
+```ts
+const app = create(ApplicationService, false, [
+  LoggingService,
+  DatabaseService,
+]);
+
+app.doStuff();
+```
+
 ## Next
 
-For more advanced uses, check out the documentation on Tags and Providers.
+For more advanced uses, check out the documentation on [Tags and Providers](/docs/tags-providers.md).

@@ -1,3 +1,0 @@
-# @fraziersoft/di
-
-... WIP ...
