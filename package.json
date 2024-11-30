@@ -20,8 +20,10 @@
     "posttest": "yarn run lint"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@types/node": "^22.7.5",
     "gts": "^6.0.2",
+    "jest": "^29.7.0",
     "reflect-metadata": "^0.2.2",
     "typescript": "^5.6.3"
   },
