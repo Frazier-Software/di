@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals';
 import { create, Inject, Injectable } from '../src';
-import { invalidProvider, unknownProvider } from '../src/internal/errors';
+import { InvalidProvider, UnknownProvider } from '../src/errors';
 
 // resources
 // --------------------------------------------------
@@ -33,10 +33,10 @@ test('Property Injection Errors', () => {
   const test1 = () => {
     create(HostA, [{ tag: 'TEST1', useValue: 15 }]);
   };
-  expect(test1).toThrowError(unknownProvider('TEST2'));
+  expect(test1).toThrowError(UnknownProvider);
 
   const test2 = () => {
     create(HostA, [{ tag: 'TEST1' }]);
   };
-  expect(test2).toThrowError(invalidProvider('TEST1'));
+  expect(test2).toThrowError(InvalidProvider);
 });

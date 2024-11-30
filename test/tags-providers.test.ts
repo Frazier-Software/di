@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals';
 import { create, Inject, Injectable } from '../src';
-import { invalidProvider, unknownProvider } from '../src/internal/errors';
+import { InvalidProvider, UnknownProvider } from '../src/errors';
 
 // resources
 // --------------------------------------------------
@@ -27,7 +27,7 @@ test('Manual Tags', () => {
   const test1 = () => {
     create(HostA);
   };
-  expect(test1).toThrowError(unknownProvider('TEST'));
+  expect(test1).toThrowError(UnknownProvider);
 
   const test2 = create(HostA, [{ tag: 'TEST', useClass: DepA }]);
   expect(test2.dep).toBeDefined();
@@ -37,7 +37,7 @@ test('Invalid Provider', () => {
   const test = () => {
     create(HostA, [{ tag: 'TEST' }]);
   };
-  expect(test).toThrowError(invalidProvider('TEST'));
+  expect(test).toThrowError(InvalidProvider);
 });
 
 test('Mixed Providers', () => {

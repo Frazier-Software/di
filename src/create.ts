@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { invalidProvider, unknownProvider } from './internal/errors';
+import { InvalidProvider, UnknownProvider } from './errors';
 import { meta } from './internal/meta';
 import {
   Constructor,
@@ -128,7 +128,7 @@ function r_build<T>(
         : null);
 
     if (!provider) {
-      throw unknownProvider(tag);
+      throw new UnknownProvider(tag);
     } else if (provider.useValue !== undefined) {
       return provider.useValue;
     } else if (provider.useFunc !== undefined) {
@@ -144,7 +144,7 @@ function r_build<T>(
         provider.global,
       );
     } else {
-      throw invalidProvider(tag);
+      throw new InvalidProvider(tag);
     }
   });
 
@@ -166,7 +166,7 @@ function r_build<T>(
         : null);
 
     if (!provider) {
-      throw unknownProvider(tag);
+      throw new UnknownProvider(tag);
     } else if (provider.useValue !== undefined) {
       target[prop] = provider.useValue as Property;
     } else if (provider.useFunc !== undefined) {
@@ -182,7 +182,7 @@ function r_build<T>(
         provider.global,
       ) as Property;
     } else {
-      throw invalidProvider(tag);
+      throw new InvalidProvider(tag);
     }
   });
 
