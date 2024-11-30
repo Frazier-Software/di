@@ -1,7 +1,14 @@
 import 'reflect-metadata';
 import { invalidProvider, unknownProvider } from './internal/errors';
 import { meta } from './internal/meta';
-import { Constructor, Namespace, Provider, ProviderConfig, Tag } from './types';
+import {
+  Constructor,
+  isConstructor,
+  Namespace,
+  Provider,
+  ProviderConfig,
+  Tag,
+} from './types';
 
 const globalCache = new Map<Namespace, Map<Tag, unknown>>();
 
@@ -93,7 +100,7 @@ function r_build<T>(
   });
 
   hints?.forEach(hint => {
-    if (typeof hint === 'function') {
+    if (isConstructor(hint)) {
       if (!providerMap.has(hint)) {
         providerMap.set(hint, { tag: hint, useClass: hint });
       }
@@ -116,7 +123,9 @@ function r_build<T>(
     const tag = tags?.get(i) ?? paramType;
     const provider =
       providerMap.get(tag) ??
-      (autowire ? { tag, useClass: tag as Constructor } : null);
+      (autowire && isConstructor(tag)
+        ? { tag, useClass: tag as Constructor }
+        : null);
 
     if (!provider) {
       throw unknownProvider(tag);
@@ -124,10 +133,7 @@ function r_build<T>(
       return provider.useValue;
     } else if (provider.useFunc !== undefined) {
       return provider.useFunc.call(null, TargetClass);
-    } else if (
-      provider.useClass?.prototype &&
-      typeof provider.useClass === 'function'
-    ) {
+    } else if (isConstructor(provider.useClass)) {
       return r_build(
         cache,
         provider.useClass,
@@ -155,7 +161,9 @@ function r_build<T>(
   props?.forEach((tag, prop) => {
     const provider =
       providerMap.get(tag) ??
-      (autowire ? { tag, useClass: tag as Constructor } : null);
+      (autowire && isConstructor(tag)
+        ? { tag, useClass: tag as Constructor }
+        : null);
 
     if (!provider) {
       throw unknownProvider(tag);
@@ -163,10 +171,7 @@ function r_build<T>(
       target[prop] = provider.useValue as Property;
     } else if (provider.useFunc !== undefined) {
       target[prop] = provider.useFunc.call(null, tag) as Property;
-    } else if (
-      provider.useClass?.prototype &&
-      typeof provider.useClass === 'function'
-    ) {
+    } else if (isConstructor(provider.useClass)) {
       target[prop] = r_build(
         cache,
         provider.useClass,

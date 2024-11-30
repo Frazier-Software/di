@@ -1,6 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Constructor<T = unknown> = new (...args: any[]) => T;
 
+export function isConstructor(obj: unknown | undefined): obj is Constructor {
+  return !!(obj as Constructor)?.prototype && typeof obj === 'function';
+}
+
 /**
  * Global singletons are stored in unique caches referred to as Namespaces.
  * The `undefined` namespsce represents the default Global Namespace.

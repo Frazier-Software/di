@@ -10,12 +10,13 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest build/test/",
+    "coverage": "yarn test --coverage",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
-    "prepare": "yarn run compile",
+    "prepare": "yarn run clean && yarn run compile",
     "pretest": "yarn run compile",
     "posttest": "yarn run lint"
   },
