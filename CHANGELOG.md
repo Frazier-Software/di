@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Frazier-Software/di/compare/v1.0.0...v1.0.1) (2024-11-30)
+
+
+### Bug Fixes
+
+* added repository reference to package.json ([c196a6c](https://github.com/Frazier-Software/di/commit/c196a6c87180f89f90424d2757b75215baa18c5c))
+
 ## 1.0.0 (2024-11-30)
 
 
