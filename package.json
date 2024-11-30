@@ -2,6 +2,10 @@
   "name": "@fraziersoft/di",
   "version": "1.0.0",
   "description": "Lightweight dependency injection for TypeScript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Frazier-Software/di.git"
+  },
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
