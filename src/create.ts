@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { Container } from './container';
 import { InvalidProvider, UnknownProvider } from './errors';
 import { meta } from './internal/meta';
 import {
@@ -67,7 +68,7 @@ export function build<T>(opts: {
 /**
  * Recursive Build (internal function)
  */
-function r_build<T>(
+export function r_build<T>(
   cache: Map<Tag, unknown> | null,
   TargetClass: Constructor<T>,
   autowire?: boolean,
@@ -132,7 +133,13 @@ function r_build<T>(
     } else if (provider.useValue !== undefined) {
       return provider.useValue;
     } else if (provider.useFunc !== undefined) {
-      return provider.useFunc.call(null, TargetClass);
+      const ioc = Container.create({
+        autowire,
+        namespace,
+        providers,
+        sharedCache: cache,
+      });
+      return provider.useFunc.call(null, TargetClass, ioc);
     } else if (isConstructor(provider.useClass)) {
       return r_build(
         cache,
@@ -170,7 +177,13 @@ function r_build<T>(
     } else if (provider.useValue !== undefined) {
       target[prop] = provider.useValue as Property;
     } else if (provider.useFunc !== undefined) {
-      target[prop] = provider.useFunc.call(null, tag) as Property;
+      const ioc = Container.create({
+        autowire,
+        namespace,
+        providers,
+        sharedCache: cache,
+      });
+      target[prop] = provider.useFunc.call(null, tag, ioc) as Property;
     } else if (isConstructor(provider.useClass)) {
       target[prop] = r_build(
         cache,

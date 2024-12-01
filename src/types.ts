@@ -1,3 +1,5 @@
+import { Container } from './container';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Constructor<T = unknown> = new (...args: any[]) => T;
 
@@ -25,7 +27,7 @@ export type Provider<T = unknown> = {
   tag: Tag<T>;
 
   useValue?: T;
-  useFunc?: (target?: T) => T;
+  useFunc?: (target?: T, ioc?: Container) => T;
   useClass?: Constructor<T>;
 
   singleton?: boolean;
