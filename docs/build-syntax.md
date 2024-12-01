@@ -50,6 +50,9 @@ const app = build({
 app.play();
 ```
 
-## Back Home
+## Next
 
-Head back to the [Project Homepage](https://github.com/Frazier-Software/di/).
+Up next:
+
+- Learn about the [IoC Container API](/docs/ioc-container.md)
+- Head back to the [Project Homepage](https://github.com/Frazier-Software/di/).

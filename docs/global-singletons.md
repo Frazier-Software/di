@@ -82,7 +82,4 @@ console.assert(app2.logger !== app3.logger);
 
 ## Next
 
-**@fraziersoft/di** also supports [Property Injection][prop-inject]. Check
-out the pros and cons of both approaches [next][prop-inject].
-
-[prop-inject]: /docs/property-injection.md
+**@fraziersoft/di** also supports [Property Injection](/docs/property-injection.md).
