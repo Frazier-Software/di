@@ -30,7 +30,7 @@ class ConsoleLogger() {
 }
 ```
 
-The `@Singleton()` decorator supportd Provider Hints in the same way as `@Injectable()`.
+The `@Singleton()` decorator supports Provider Hints in the same way as `@Injectable()`.
 See the [Provider Hints](/docs/provider-hints.md) docs for more info.
 
 ## Singleton Scope
