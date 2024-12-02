@@ -86,7 +86,8 @@ tags
 .~lock.*#
 
 # dotenv environment variable files
-.env
+# .env
+*.local
 
 # Runtime data
 pids
