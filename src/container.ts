@@ -4,6 +4,11 @@ import { Constructor, Namespace, Provider, ProviderConfig, Tag } from './types';
 type ReadonlyProviders = ReadonlyArray<Readonly<Provider> | Constructor>;
 let containerIndex = 1;
 
+/**
+ * IoC Container API
+ *
+ * Encapsulates a set of providers, autowire, namespace, and cache configuration.
+ */
 export class Container {
   autowire: boolean;
 
@@ -30,6 +35,12 @@ export class Container {
       : null;
   }
 
+  /**
+   * Create a new container instance.
+   *
+   * See @{link https://github.com/Frazier-Software/di/blob/main/docs/ioc-container.md}
+   * for more information.
+   */
   static create(opts?: {
     autowire?: boolean;
     namespace?: Namespace;
@@ -39,6 +50,10 @@ export class Container {
     return new Container(opts);
   }
 
+  /**
+   * Create a new Instance of `target`. Equivalent to calling create() with the
+   * store configuration provided when creating the Container.
+   */
   create<T>(target: Constructor<T>): T {
     return r_build(
       this.#cache,
